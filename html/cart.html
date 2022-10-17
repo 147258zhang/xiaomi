@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/cart.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="../vue.js"></script>
+    <script src="../jQuery.js"></script>
+</head>
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="wrap">
+                <div class="header_left">
+                    <div class="logo">
+                        <img src="https://s02.mifile.cn/assets/static/image/logo-mi2.png" alt="">
+                    </div>
+                    <div class="title">
+                        <h2>我的购物车</h2>
+                        <p>温馨提示:产品是否购买成功，以最终下单为准哦，请尽快结算</p>
+                    </div>
+                </div>
+                <div class="header_right">
+                    <div class="user">
+                        登录
+                    </div>
+                    <div>|</div>
+                    <div class="order">注册</div>
+                </div>
+            </div>
+        </div>
+        <div class="content">
+            <div class="wrap">
+                <div class="list">
+                    <div class="col_check">
+                        <input type="checkbox" v-model="change1">
+                        <span>全选</span>
+                    </div>
+                    <div class="col_img">
+                        
+                    </div>
+                    <div class="col_name">
+                        商品名称
+                    </div>
+                    <div class="col_price">
+                        单价
+                    </div>
+                    <div class="col_num">
+                        数量
+                    </div>
+                    <div class="col_total">
+                        小计
+                    </div>
+                    <div class="col_action">
+                        操作
+                    </div>
+                </div>
+                <div class="list_box" v-for="(value,index) in cart">
+                    <div class="col_check">
+                        <input type="checkbox" v-model="value.change" @click="check(value,index)">
+                    </div>
+                    <div class="col_img">
+                        <img :src=value.img alt="">
+                    </div>
+                    <div class="col_name">
+                        {{value.name}} {{value.hardname}}{{value.color}}
+                    </div>
+                    <div class="col_price">
+                        {{value.price}}元
+                    </div>
+                    <div class="col_num">
+                        <div class="change">
+                            <div class="button" @click="num1(value,index)">-</div>
+                            <div class="num">{{value.num}}</div>
+                            <div class="button" @click="num2(value,index)">+</div>
+                        </div>
+                    </div>
+                    <div class="col_total">
+                        {{value.price*value.num}}元
+                    </div>
+                    <div class="col_action">
+                        <div class="del" @click="del(value,index)"><i class="iconfont">&#xe65d;</i></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer" >
+            <div class="wrap">
+                <div class="footer_num">已选择<i>{{number1}}</i>件</div>
+                <div class="footer_price">合计：<em>{{number2}}</em>元</div>
+                <div class="footer_btn">去结算</div>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                num:0,
+                cart:''
+            },
+            methods: {
+                // 按钮--
+                num1(value,index){
+                    var localArr=JSON.parse(localStorage.getItem('goods'))
+                    if(value.num>1){
+                        localArr[index].num--
+                        value.num--
+                        console.log(localArr);
+                        localStorage.setItem('goods',JSON.stringify(localArr))
+                    }else{
+                        alert('修改数量不能小于0')
+                    }
+                    
+                },
+                // 按钮++
+                num2(value,index){
+                    var localArr=JSON.parse(localStorage.getItem('goods'))
+                    if(value.num<10){
+                        localArr[index].num++
+                        value.num++
+                        console.log(localArr);
+                        localStorage.setItem('goods',JSON.stringify(localArr))
+                    }else{
+                        alert('商品数量不能大于10')
+                    }
+                    
+                },
+                // 删除
+                del(value,index){
+                    if(confirm('确定删除所选商品吗？')){
+                        var localArr=JSON.parse(localStorage.getItem('goods'));
+                        localArr.splice(index,1)
+                        localStorage.setItem('goods',JSON.stringify(localArr))
+                        this.cart=localArr
+                    }
+                    
+                },
+                check(value,index){
+                    var localArr=JSON.parse(localStorage.getItem('goods'));
+                    localArr[index].change=!localArr[index].change
+                    localStorage.setItem('goods',JSON.stringify(localArr))
+                    console.log(localArr);
+
+                }
+            },
+            beforeMount() {
+                var str=JSON.parse(localStorage.getItem('goods'))
+                // console.log(str);
+                this.cart=str
+            },
+            computed:{
+                // 数量
+                number1:{
+                    get(){
+                        return this.cart.reduce((total,value)=>{
+                            // console.log(value.num);
+                            // console.log(total);
+                            // console.log(value.change);
+                            if(value.change){
+                                console.log('11');
+                                return total+value.num  
+                            }
+                            return total
+                        },0)
+                    }
+                },
+                // 合计
+                number2:{
+                    get(){
+                        return this.cart.reduce((total,value)=>{
+                            if(value.change){
+                                return total+value.num*value.price
+                            }
+                            return total
+                        },0)
+                    }
+                },
+                change1:{
+                    get(){
+                        // console.log(typeof(this.cart));
+                        // console.log(this.cart);
+                        if(this.cart===''){
+                            return
+                        }else{
+                            // console.log('11');
+                            // console.log(this.cart.every(value=>{
+                            //     return value.change===true
+                            // }));
+                            return this.cart.every(value=>{
+                                return value.change===true
+                            })
+                        }
+                        
+                    },
+                    set(val){
+                        // console.log(val);
+                        this.cart.forEach(value=>{
+                            value.change=val
+                        })
+                    }
+                },
+            },
+        });
+    </script>
+</body>
+</html>

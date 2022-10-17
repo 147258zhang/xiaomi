@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="../vue.js"></script>
+    <script src="../jQuery.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div class="header">
+            <div class="wrap">
+                <ul>
+                    <li>小米商城</li>
+                    <li>MIUI</li>
+                    <li>loT</li>
+                    <li>云服务</li>
+                    <li>天星数科</li>
+                    <li>有品</li>
+                    <li>小爱开放平台</li>
+                    <li>企业团购</li>
+                    <li>资质证照</li>
+                    <li>协议规则</li>
+                    <li class="download">下载app
+                        <div class="overImg">
+                            <img src="https://i1.mifile.cn/f/i/17/appdownload/download.png?1" alt="">
+                            <span>小米商城APP</span>
+                        </div>
+                    </li>
+                    <li>Select Location</li>
+                </ul>
+                <ul>
+                    <a :href="loginHref" v-html="login">
+                    </a>
+                    <a href="/html/register.html" v-html="register">
+                    </a>
+                    <li>消息通知</li>
+                    <li :class="cart">
+                        <i class="iconfont">&#xe600;</i>
+                        购物车 ({{num===''?0:num}})
+                        <div class="shop" :class="shop1" v-html="shop">购物车中还没有商品，赶紧选购吧！</div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+        <div class="nav">
+            <div class="wrap">
+                <ul class="logo">
+                    <img src="https://s02.mifile.cn/assets/static/image/logo-mi2.png" alt="">
+                </ul>
+                <ul class="container">
+                    <li>Xiaomi手机
+                        <div class="nav_bar">
+                            <div class="last_wrap">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/88ae9b85c5f8fbdae2ea98d58a045e1e.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>Redmi红米
+                        <div class="nav_bar">
+                            <div class="last_wrap">
+                                <ul>
+                                    <li>
+                                        <div>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/6511d77270e94146c0b1f96b66d8cc58.png?thumb=1&w=200&h=138&f=webp&q=90"
+                                                alt="">
+                                        </div>
+                                        <p>xiaomi Civi 1S</p>
+                                        <p>2299元起</p>
+                                    </li>
+                                </ul>
+                            </div>
+                        </div>
+                    </li>
+                    <li>电视</li>
+                    <li>笔记本</li>
+                    <li>平板</li>
+                    <li>家电</li>
+                    <li>路由器</li>
+                    <li>服务中心</li>
+                    <li>社区</li>
+                </ul>
+                <ul class="search">
+                    <input type="text" placeholder=" 冰箱" v-model="search.name">
+                    <button type="button" class="iconfont">&#xe621;</button>
+                    <div>
+                        <ul>
+                            <a href="#">
+                                <li v-for="(value,index) in search.person">{{value.name}}</li>
+                            </a>
+                        </ul>
+                    </div>
+                </ul>
+            </div>
+        </div>
+        <div class="banner">
+            <div class="wrap">
+                <div class="banner_box" >
+                    <div v-for="(value,index) in img_str">
+                        <img :src=value.url alt="" v-show="index===mark">
+                    </div> 
+                    <div class="banner_button_left" @click="mark>0?mark--:mark=3"><i class="iconfont">&#xe660;</i></div>
+                    <div class="banner_button_right" @click="mark<3?mark++:mark=0"><i class="iconfont">&#xe662;</i></div>
+                    <div class="banner_button_footer">
+                        <button v-for="(value,index) in img_str" @click="mark=index" :style="mark===index?backgroundC:''"></button>
+                    </div>
+                    <div class="slide">
+                        <ul>
+                            <li>手机<i class="iconfont">&#xe62d;</i>
+                                <div class="slide_list">
+                                    <ul>
+                                        <li>
+                                            <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/d8aeccb0bad7f28a44aa89b2ddb51010.png?thumb=1&w=50&h=50&f=webp&q=90"
+                                                alt="">
+                                            <span>Note 11T Pro+</span>
+                                        </li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                    <ul>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                    <ul>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                    <ul>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                        <li></li>
+                                    </ul>
+                                </div>
+                            </li>
+                            <li>电视<i class="iconfont">&#xe62d;</i></li>
+                            <li>笔记本<i class="iconfont">&#xe62d;</i></li>
+                            <li>出行<i class="iconfont">&#xe62d;</i></li>
+                            <li>耳机<i class="iconfont">&#xe62d;</i></li>
+                            <li>家电<i class="iconfont">&#xe62d;</i></li>
+                            <li>智能<i class="iconfont">&#xe62d;</i></li>
+                            <li>电<i class="iconfont">&#xe62d;</i></li>
+                            <li>健康<i class="iconfont">&#xe62d;</i></li>
+                            <li>生活<i class="iconfont">&#xe62d;</i></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="adv">
+            <div class="wrap">
+                <div class="adv_aside">
+                    <ul>
+                        <li class="row">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>保障服务</p>
+                        </li>
+                        <li class="col row">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>企业团购</p>
+                        </li>
+                        <li class="col row">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>F码通道</p>
+                        </li>
+                        <li class="">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>米粉卡</p>
+                        </li>
+                        <li class="col">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>以旧换新</p>
+                        </li>
+                        <li class="col">
+                            <i class="iconfont">&#xe8c4;</i>
+                            <p>话费充值</p>
+                        </li>
+                    </ul>
+                </div>
+                <div class="adv_img">
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2596938425e8d9019ffae94fbcfa4524.jpg?w=632&h=340"
+                        alt="">
+                </div>
+                <div class="adv_img">
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2596938425e8d9019ffae94fbcfa4524.jpg?w=632&h=340"
+                        alt="">
+                </div>
+                <div class="adv_img">
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/2596938425e8d9019ffae94fbcfa4524.jpg?w=632&h=340"
+                        alt="">
+                </div>
+            </div>
+        </div>
+        <div class="container_second">
+            <div class="wrap">
+                <div class="phone_img">
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/b2a3468c474addf9140a21cc77a87d5c.jpeg?thumb=1&w=1533&h=150&f=webp&q=90"
+                        alt="">
+                </div>
+                <h2>手机
+                    <div>查看更多<i class="iconfont">&#xe8b9;</i></div>
+                </h2>
+                <div class="phone_box">
+                    <div class="phone_box_left">
+                        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ac5cafc68c10ce4471869d378f594b52.png?thumb=1&w=293&h=768&f=webp&q=90"
+                            alt="">
+                    </div>
+                    <div class="phone_box_right">
+                        <ul>
+                            <a :href="'/html/phone.html?id='+value.id+'&cpu='" v-for="(value,index) in phone">
+                                <li class="items">
+                                    <img :src=value.img
+                                        alt="">
+                                    <p>
+                                        {{value.name}}
+                                    </p>
+                                    <p>{{value.cpu}}</p>
+                                    <p>{{value.price}}元<del>{{value.priceD===''?value.priceD:value.priceD+'元'}}</del></p>
+                                </li>
+                            </a>
+                        </ul>
+                    </div>
+                </div>
+                <div class="home_img">
+                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/01cc6a570d32a2ee09a2d5c2009a9968.jpg?thumb=1&w=1533&h=150&f=webp&q=90"
+                        alt="">
+                </div>
+                <h2>
+                    家用电器
+                </h2>
+                <div class="home_box">
+                    <div class="home_box_left">
+                        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3d47879ec183e25a36e67e0219636e60.jpg?thumb=1&w=293&h=375&f=webp&q=90"
+                            alt="">
+                        <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/229bbaccda43f32f464c0a810b800106.jpg?thumb=1&w=293&h=375&f=webp&q=90"
+                            alt="">
+                    </div>
+                    <div class="home_box_right">
+                        <ul>
+                            <a :href="'/html/tv.html?id='+value.id" v-for="(value,index) in tv">
+                                <li class="items">
+                                    <img :src=value.img
+                                        alt="">
+                                    <p>
+                                        {{value.name}}
+                                    </p>
+                                    <p>{{value.cpu}}</p>
+                                    <p>{{value.price}}元<del>{{value.priceD===''?value.priceD:value.priceD+'元'}}</del></p>
+                                </li>
+                            </a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="video">
+                    <h2></h2>
+                    <div class="video_box">
+                        <li><a href="#">
+                                <div class="video_img">
+                                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e74c4ff741bcdfc5b28a48a43e4edc6d.jpg?thumb=1&w=370&h=225&f=webp&q=90"
+                                        alt="">
+                                    <div class="play">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <p class=>2021年春季新品发布会第一场</p>
+                            </a>
+                        </li>
+                        <li><a href="#">
+                                <div class="video_img">
+                                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e74c4ff741bcdfc5b28a48a43e4edc6d.jpg?thumb=1&w=370&h=225&f=webp&q=90"
+                                        alt="">
+                                    <div class="play">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <p class=>2021年春季新品发布会第一场</p>
+                            </a>
+                        </li>
+                        <li><a href="#">
+                                <div class="video_img">
+                                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e74c4ff741bcdfc5b28a48a43e4edc6d.jpg?thumb=1&w=370&h=225&f=webp&q=90"
+                                        alt="">
+                                    <div class="play">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <p class=>2021年春季新品发布会第一场</p>
+                            </a>
+                        </li>
+                        <li><a href="#">
+                                <div class="video_img">
+                                    <img src="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e74c4ff741bcdfc5b28a48a43e4edc6d.jpg?thumb=1&w=370&h=225&f=webp&q=90"
+                                        alt="">
+                                    <div class="play">
+                                        <div></div>
+                                    </div>
+                                </div>
+                                <p class=>2021年春季新品发布会第一场</p>
+                            </a>
+                        </li>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="footer">
+            <div class="wrap">
+                <div class="footer_server">
+                    <ul>
+                        <li><i class="iconfont">&#xe715;</i>预约维修服务</li>
+                        <li><i class="iconfont">&#xe715;</i>预约维修服务</li>
+                        <li><i class="iconfont">&#xe715;</i>预约维修服务</li>
+                        <li><i class="iconfont">&#xe715;</i>预约维修服务</li>
+                        <li><i class="iconfont">&#xe715;</i>预约维修服务</li>
+                    </ul>
+                </div>
+                <div class="footer_links">
+                    <ul></ul>
+                    <ul>
+                        <li>帮助中心</li>
+                        <li>用户管理</li>
+                        <li>账户管理</li>
+                        <li>账户管理</li>
+                        <li>手机</li>
+                        <li>电视</li>
+                        <li>笔记本</li>
+                        <li>家电</li>
+                        <li>扫地机</li>
+                    </ul>
+                    <ul>
+                        <li>帮助中心</li>
+                        <li>用户管理</li>
+                        <li>账户管理</li>
+                        <li>账户管理</li>
+                    </ul>
+                    <ul>
+                        <li>帮助中心</li>
+                        <li>用户管理</li>
+                        <li>账户管理</li>
+                        <li>账户管理</li>
+                    </ul>
+                    <ul>
+                        <li>帮助中心</li>
+                        <li>用户管理</li>
+                        <li>账户管理</li>
+                        <li>账户管理</li>
+                    </ul>
+                    <ul>
+                        <li>帮助中心</li>
+                        <li>用户管理</li>
+                        <li>账户管理</li>
+                        <li>账户管理</li>
+                    </ul>
+                    <div class="contact">
+                        <p>400-100-5678</p>
+                        <p>8:00-18:00 (仅收市话费)</p>
+                        <a href="#"><i class="iconfont">&#xe605;</i>人工客服</a>
+                    </div>
+                </div>
+                <div class="footer_info">
+                    <div class="info_top">
+                        <img src="https://s02.mifile.cn/assets/static/image/logo-mi2.png" alt="">
+                        <div class="info_right">
+                            <p>
+                                <a rel="nofollow" href="//www.mi.com/shop" target="_blank">小米商城</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//www.miui.com/" target="_blank">MIUI</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//home.mi.com/index.html" target="_blank">米家</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="http://www.miliao.com/" target="_blank">米聊</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//www.duokan.com/" target="_blank">多看</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//game.xiaomi.com/" target="_blank">游戏</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//b.mi.com/?client_id=180100031058&masid=17409.0358"
+                                    target="_blank">政企服务</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//xiaomi.tmall.com/" target="_blank">小米天猫店</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//privacy.mi.com/all/zh_CN/" target="_blank">小米集团隐私政策</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//cdn.cnbj1.fds.api.mi-img.com/mi-mall/f516fe9e2c01.html"
+                                    target="_blank">小米公司儿童信息保护规则</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//m.mi.com/support/module?id=63&headless=1"
+                                    target="_blank">小米商城隐私政策</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//www.mi.com/aptitude/list?id=62" target="_blank">小米商城用户协议</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="//static.mi.com/feedback/" target="_blank">问题反馈</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="javascript:void(0);" class="J_siteGlobalRegion">Select
+                                    Location</a>
+                                <br>
+                                <a rel="nofollow" href="http://www.mi.com/beihu" target="_blank">北京互联网法院法律服务工作站</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="http://www.cca.org.cn/" target="_blank">中国消费者协会</a>
+                                <span class="sep">|</span>
+                                <a rel="nofollow" href="http://www.bj315.org/" target="_blank">北京市消费者协会</a>
+                            </p>
+                            <p>
+                                &copy;
+                                <a href="javascript:;" title="mi.com">mi.com</a> 京ICP证110507号
+                                <a href="http://beian.miit.gov.cn/" target="_blank" rel="nofollow">京ICP备10046444号</a>
+                                <a rel="nofollow"
+                                    href="http://www.beian.gov.cn/portal/registerSystemInfo?recordcode=11010802020134"
+                                    target="_blank">京公网安备11010802020134号</a>
+                                <a href="//www.mi.com/culture-license/" target="_blank">京网文[2020]0276-042号</a>
+                                <br>
+                                <a href="//www.mi.com/medical/record/" target="_blank">（京）网械平台备字（2018）第00005号</a>
+                                <a href="//www.mi.com/medical/qualification/" target="_blank">互联网药品信息服务资格证
+                                    (京)-非经营性-2014-0090</a>
+                                <a href="//www.mi.com/business-license/" target="_blank">营业执照</a>
+                                <a href="//www.mi.com/medical/list/" target="_blank">医疗器械质量公告</a>
+                                <br>
+                                <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/e0c7d4cf3b7cd88de10196e30c92e020.png"
+                                    target="_blank">增值电信业务许可证</a>&nbsp;网络食品经营备案 京食药网食备202010048 &nbsp;
+                                <a href="https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/c6859168166651511897f54fa1047fe3.png"
+                                    target="_blank">食品经营许可证</a>
+                                <br>
+                                违法和不良信息举报电话：171-5104-4404&nbsp;<a href='https://www.mi.com/intellectual'
+                                    target="_blank">知识产权侵权投诉</a>&nbsp;本网站所列数据，除特殊说明，所有数据均出自我司实验室测试
+                            </p>
+                            <p>
+                                <img src="https://i1.mifile.cn/f/i/17/site/truste.png" alt="">
+                                <img src="https://i1.mifile.cn/f/i/17/site/truste.png" alt="">
+                                <img src="https://i1.mifile.cn/f/i/17/site/truste.png" alt="">
+                                <img src="https://i1.mifile.cn/f/i/17/site/truste.png" alt="">
+                            </p>
+                        </div>
+                    </div>
+                    <div class="info_bottom">
+                        <img src="https://cdn.cnbj1.fds.api.mi-img.com/staticsfile/global/slogan2020.png" alt="">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                // 购物车
+                shop:'购物车中还没有商品，赶紧选购吧！',
+                cart:'',
+                shop1:'',
+                num:'',
+                price:'',
+                // 登录
+                login:'<li>登录</li>',
+                loginHref:'/html/login.html',
+                loginClass:'',
+                register:'<li>注册</li>',
+                search:{
+                    name:'',
+                    person:[
+                    {name:'手机'},
+                    {name:'家电'},
+                    {name:'冰箱'},
+                    {name:'电视'},
+                    {name:'洗衣机'},
+                    {name:'手表'},
+                    {name:'平衡车'}
+                ],
+                persons:[
+                    {name:'手机'},
+                    {name:'家电'},
+                    {name:'冰箱'},
+                    {name:'电视'},
+                    {name:'洗衣机'},
+                    {name:'手表'},
+                    {name:'平衡车'}
+                ]
+                },
+                phone:'',
+                tv:'',
+                // 轮播图效果
+                img_str:[
+                    {url:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/3b549726ae51e189b4c3eb0f672cba36.jpg?w=2452&h=920'},
+                    {url:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/36b45c624f42fa81732457e3f9773dbd.jpg?thumb=1&w=1533&h=575&f=webp&q=90'},
+                    {url:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/11366eceddaab36ed8dda2bf1f24b67a.jpeg?thumb=1&w=1533&h=575&f=webp&q=90'},
+                    {url:'https://cdn.cnbj1.fds.api.mi-img.com/mi-mall/ce029906e8b21a65cc3ec4966e61ff7d.jpg?w=2452&h=920'}
+                ],
+                mark:0,
+                timer:'',
+                backgroundC:{
+                    backgroundColor:'#757575',
+                    borderColor:'#757575'
+                }
+            },
+            watch:{
+                'search.name':{
+                    handler(newval){
+                        $.ajax({
+                            url:'/api/search',
+                            type:'POST',
+                            success:(data)=>{
+                                console.log(typeof(newval));
+                                this.search.person=data.filter((value)=>{
+                                return value.name.indexOf(newval)!==-1
+                                }).slice(0,7)
+                                if(newval===''){
+                                    this.search.person=this.search.persons
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err.message);
+                            },
+                        })
+                    }
+                }
+            },
+            mounted() {
+                // 登录ajax
+                $.ajax({
+                url: 'http://localhost:3000/router/userinfo',
+                type: 'POST',
+                success: (data)=>{
+                    console.log(data);
+                    if (data.status === 1) return
+                    this.login=`
+                        <div class="userinfo">
+                            <div class="fList">
+                                ${data.data.uname}
+                                <div>
+                                    <i class="iconfont">&#xe62e;</i>
+                                </div>
+                            </div>
+                            <div class="sList">
+                                <div>个人中心</div>
+                                <div>评价晒单</div>
+                                <div>我的喜欢</div>
+                                <div>小米账户</div>
+                                <div><a class='logout' href='/html/index.html'>退出登陆</a></div>
+                            </div> 
+                        </div>
+                    `
+                    let arr=[]
+                    let localArr=JSON.parse(localStorage.getItem('goods'));
+                    localArr.forEach((value)=>{
+                        if(value.change){
+                        arr.push(`
+                            <div class="cart" v-for="">
+                                <div class="img">
+                                    <img src="${value.img}" alt="">
+                                </div>
+                                <div class="name">${value.name}</div>
+                                <div class="price">${value.price}×${value.num}</div>
+                            </div>
+                        `)
+                        }
+                        
+                    })
+                    this.num=localArr.reduce((total,value)=>{
+                            if(value.change){
+                                console.log('11');
+                                return total+value.num  
+                            }
+                            return total
+                    },0)
+                    this.price=localArr.reduce((total,value)=>{
+                            if(value.change){
+                                return total+value.num*value.price
+                            }
+                            return total
+                        },0)
+                    // console.log(arr.join(''));
+                    this.shop=arr.join('')+`
+                        <div class="total">
+                            <span class="total_left">
+                                <span class="num">共${this.num}件商品</span>
+                                <span class="price"><em>${this.price}</em>元</span>
+                            </span>
+                            <a href="/html/cart.html">
+                                <div class="total_right">去购物车结算</div>
+                            </a>
+                        </div>
+                    `
+                    this.shop1='shop1'
+                    this.$nextTick().then(()=>{
+                    $('.logout').click(()=>{
+                            console.log('aa');
+                            sessionStorage.removeItem('token')
+                        })
+                    })
+                    this.register='',
+                    this.loginHref='#'
+                    console.log(this.loginClass);
+                },
+                error: function (err) {
+                    console.log(err.message);
+                },
+                headers: {
+                    Authorization: sessionStorage.getItem('token')
+                }
+            })
+            $.ajax({
+                url:'/api/phone',
+                type:'POST',
+                success:(data)=>{
+                    console.log(data);
+                    this.phone=data
+                },
+                error:(err)=>{
+                    console.log(err.message);
+                }
+            })
+            $.ajax({
+                url:'/api/tv',
+                type:'POST',
+                success:(data)=>{
+                    this.tv=data
+                },
+                error:(err)=>{
+                    console.log(err.message);
+                }
+            })
+            this.timer=setInterval(()=>{
+                this.mark<3?this.mark++:this.mark=0
+            },5000)
+            },
+        });
+    </script>
+</body>
+
+</html>

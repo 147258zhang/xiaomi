@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../css/phone.css">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    <script src="../vue.js"></script>
+    <script src="../jQuery.js"></script>
+</head>
+<body>
+    <div class="content" id="app">
+        <div class="wrap" >
+            <div class="aside_left">
+                <img :src=shop[index1]&&shop[index1].imgL alt="">
+            </div>
+            <div class="aside_right" >
+                <h2>{{shop[index1]&&shop[index1].name}}</h2>
+                <p>{{shop[index1]&&shop[index1].cpu}}</p>
+                <p>小米自营</p>
+                <div class="price_info">{{shop[index1]&&shop[index1].price}} 元<del>{{shop[index1]&&shop[index1].priceD}}</del></div>
+                <hr>
+                <div class="address"></div>
+                <div class="title">选择颜色</div>
+                <ul>
+                    <li v-for="(value,index) in shop" @click="index1=index" :style="index1===index?backgroundC:''">{{value.color}}</li>
+                </ul>
+                <div class="select">
+                    <li>{{shop[index1]&&shop[index1].name}}&nbsp;{{shop[index1]&&shop[index1].color}}<span>{{shop[index1]&&shop[index1].price}}元<del></del></span></li>
+                    <div class="price_total">总计：{{shop[index1]&&shop[index1].price}}元</div>
+                </div>
+                <div class="btn">
+                    <a href="/html/cart.html">
+                        <div class="sale" @click="cart">加入购物车</div>
+                    </a>
+                    <div class="like"><i class="iconfont">&#xe6c8;</i>喜欢</div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        
+        // console.log(str.slice(1).replace(/=/g,':').split('&')[0]);
+        // let shopId=function(){
+        //     const str=window.location.search
+        //     return str.slice(1)
+            
+        // }
+        var vm=new Vue({
+            el:'#app',
+            data:{
+                shop:'',
+                index1:0,
+                backgroundC:{
+                    color: '#ff6700',
+                    borderColor: '#ff6700'
+                }
+            },
+            methods: {
+                cart(){
+                    var id=this.shop[this.index1]
+                    console.log(id);
+                    var first=localStorage.getItem('goods')==null?true:false
+                    if(first){
+                        var localArr=[{...id,num:1,change:true}]
+                        console.log(localArr);
+                        localStorage.setItem('goods',JSON.stringify(localArr))
+                    }else{
+                        var same=false
+                        var localStr=localStorage.getItem('goods')
+                        var localArr=JSON.parse(localStr)
+                        localArr.forEach((value)=>{
+                            console.log(value);
+                            if(value.id==id.id){
+                                value.num++
+                                same=true
+                                return
+                            }
+                        })
+                        if(!same){
+                            var obj={...id,num:1,change:true}
+                            localArr.push(obj)
+                        }
+                        localStorage.setItem('goods',JSON.stringify(localArr))
+                    }
+                    alert(localStorage.getItem('goods'))
+                }
+            },
+            mounted() {
+                $.ajax({
+                    url:`/api/tv${window.location.search}`,
+                    type:'GET',
+                    success:(data)=>{
+                        console.log(data);
+                        this.shop=data
+                    }
+                })
+            },
+        });
+    </script>
+</body>
+</html>

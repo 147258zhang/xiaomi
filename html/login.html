@@ -1,0 +1,525 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue.js"></script>
+    <script src="../jQuery.js"></script>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css" integrity="sha384-HSMxcRTRxnN+Bdg0JdbxYKrThecOKuH5zCYotlSAcp1+c8xmyTe9GYg1l9a69psu" crossorigin="anonymous">
+    <link rel="stylesheet" href="../css/iconfont.css">
+    
+    <style>
+        *,p{
+            margin: 0;
+            padding: 0;
+        }
+        body{
+            text-align: center;
+            font-family: "MiSans","Helvetica Neue",Arial,"Noto Sans",sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol","Noto Color Emoji";
+        }
+        li{
+            list-style-type: none;
+        }
+        a:link{
+            text-decoration: none;
+        }
+        img,input{
+            border: none;
+            vertical-align: middle;
+        }
+        .root{
+            display: flex;
+            justify-content: flex-start;
+        }
+        .left_side_bar{
+            height: 720px;
+            background-image: url("https://cdn.web-global.fds.api.mi-img.com/mcfe--mi-account/static/static/media/banner.5b1efcd8.jpg");
+            background-size: 100% 100%;
+            background-repeat: no-repeat;
+        }
+        
+        @media screen and (max-width:900px){
+            .left_side_bar{
+                flex: 0 0 0px;
+            }
+        }
+        @media screen and (max-width:1100px) and (min-width:900px){
+            .left_side_bar{
+                flex: 0 0 200px;
+            }
+        }
+        @media screen and (min-width:1100px){
+            .left_side_bar{
+               flex: 0 0 375px;
+            }
+        }
+        .right_side_bar{
+            flex: 1 1 auto;
+            overflow: hidden;
+        }
+        .top>div{
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .top{
+            padding: 20px 0px 20px 20px;
+            display: flex;
+            justify-content: space-between;
+        }
+            .top>div>img{
+                width: 40px;
+                height: 40px;
+                margin-right: 13px;
+            }
+            .top>.right{
+                margin-right: 30px;
+            }
+            .top>.left>div{
+                font-weight: 500;
+                font-size: 26px;
+            }
+            .top>.right>div{
+                margin: 0 10px;
+                font-size: 14px;
+                height: 40px;
+                line-height: 40px;
+                color: #838383;
+            }
+            .top>.right>.border::after{
+               content: '';
+               border-left: 1px solid #838383;
+            }
+            .right>div:hover{
+                color: #ff5c00;
+            }
+
+            .china>p::after{
+                content: '';
+                display: inline-block;
+                border-style: solid;
+                border-width: 4px;
+                border-color: #838383 transparent transparent transparent;
+                position: relative;
+                left: 5px;
+            }
+            .china>p:hover::after{
+                border-color: #ff5c00 transparent transparent transparent;
+                transform-origin: 4px 1px;
+                transform: rotate(180deg);
+                position: relative;
+                top: 0px;
+                transition: transform .3s;
+            }
+            .china{
+                position: relative;
+                text-align: center;
+            }
+            .china>div{
+                width: 100px;
+                position: absolute;
+                left: 50%;
+                margin-left: -50px;
+                box-shadow: 0 1px 5px -2px #aaa;
+                height: 0;
+                overflow: hidden;
+            }
+            .china:hover>div{
+                height:80px;
+                transition: all .3s;
+                color: #838383;
+            }
+            .container{
+                border-radius: 4px;
+                padding: 40px 45px;
+                position: relative;
+                left: calc(50% -225px);
+                width: 450px;
+                height: 550px;
+                margin-top: 20px;
+                position: relative;
+            }
+            .container>.switch{
+                position: absolute;
+                right: 0;
+                top: 0;
+                height: 0;
+                width: 0;
+                border: 32px solid ;
+                border-color: #ff5c00 #ff5c00 transparent transparent;
+                opacity: .4;
+            }
+            .switch>span{
+                display: block;
+                font-size: 40px;
+                color: white;
+                position: absolute;
+                top: -30px;
+                right: -24px;
+
+            }
+            .switch_left{
+                position: absolute;
+                top: 14px;
+                right: 70px;
+                width: 90px;
+                height: 32px;
+                line-height: 32px;
+                border-radius: 4px;
+                background-color: #ff5c00;
+                color: white;
+                visibility: hidden;
+            }
+            .switch_left::after{
+                content: "";
+                display: block;
+                position: absolute;
+                right: -10px;
+                top: 12px;
+                border: 5px solid;
+                border-color: transparent transparent transparent #ff5c00 ;
+            }
+            .switch:hover+.switch_left{
+                visibility: visible;
+                transition: all 3s;
+                
+            }
+            .switch:hover{
+                opacity: 1;
+            }
+            .tab_top{
+                display: flex;
+            }
+            .tab_top>div{
+                justify-content: flex-start;
+                margin: 0 20px 0 0;
+                padding: 0 0 4px;
+                height: 41px;
+                line-height: 41px;
+                font-weight: 500;
+                font-size: 22px;
+            }
+            .tab_top>div>a{
+                color: #bbb;
+                outline: 0;
+                display: block;
+            }
+            .tab_top>div>a:focus{
+                color: #333;
+                text-shadow: 0 0 1px currentColor;
+                font-weight: 500;
+            }
+            .tab_top>div>div{
+                width: 44px;
+                height: 4px;
+                border-radius: 2px;
+                background-color: #ff5c00;
+                display: none;
+            }
+            .tab_top>div>a:focus+div{
+                display: block;
+            }
+            .tab_content{
+                padding: 45px 2px 0;
+            }
+            .tab_content>div>div>input{
+                display: block;
+                width: 100%;
+                padding: 30px 20px 10px;
+                margin-bottom: 20px;
+                border: none;
+            }
+            .tab_content>div>div>input:focus{
+                border: 1px solid #ff5c00;
+                outline: 0;
+                box-shadow: 0 0 3px #ff5c00;
+                border-radius: 2px;
+            }
+            .tab_content>div{
+                display: flex;
+                position: relative;
+                justify-content: flex-start;
+            }
+            .tab_content>div>div{
+                width: 100%;
+            }
+            .tab_content>div>button{
+                width: 60px;
+                height: 60px;
+                border: 0;
+                flex:none;
+            }
+            .tab_content>div>div>span{
+                display: block;
+                position: absolute;
+                left: 20px;
+                top: 20px;
+                height: 20px;
+                font-weight: 400;
+                font-size: 17px;
+                color: rgba(0,0,0,.4);
+                line-height: 20px;
+                transition: top .15s cubic-bezier(.4,0,.2,1),font-size .15s cubic-bezier(.4,0,.2,1),color .15s cubic-bezier(.4,0,.2,1);
+            }
+            .tab_content>div>div>input:focus+span{
+                top: 6px;
+                font-size: 12px;
+                color: #838383;
+            }
+            .tab_content>p{
+                display: none;
+                margin: 10px 0 20px;
+                color: #f04645;
+                font-size: 12px;
+                line-height: 20px;
+                text-align: left;
+            }
+            .tab_content>div>input{
+                width: 20px;
+                height: 20px;
+            }
+            .tab_content>div>span{
+                padding: 4px 0 0 4px;
+                z-index: 1;
+            }
+            .tab_content>button{
+                width: 100%;
+                height: 60px;
+                line-height: 60px;
+                margin: 20px 0 10px;
+                padding: 0 20px;
+                border-color: transparent;
+                font-size: 18px;
+                color: white;
+                background: #ff5c00;
+                text-align: center;
+                border-radius: 4px;
+                opacity: .4;
+            }
+            .tab_content>.tab_float{
+                position: absolute;
+                display: none;
+                top: 270px;
+                left: calc(50% - 70px);
+                width: 140px;
+                height: 40px;
+                line-height: 40px;
+                background-color:white;
+                font-size: 13px;
+                z-index: 100;
+            }
+            .tab_content>.form_action{
+                display: flex;
+                justify-content: space-between;
+            }
+            .tab_content>.form_action>div{
+                width: 85px;
+                font-size: 17px;
+                color: #ff5c00;
+            }
+            .font_style{
+                top: 6px !important;
+                font-size: 12px !important;
+            }
+    </style>
+</head>
+<body>
+        <div class="root" >
+            <div class="left_side_bar"></div>
+            <div class="right_side_bar">
+                <div class="top">
+                    <div class="left">
+                        <img src="https://dss0.bdstatic.com/-0U0bnSm1A5BphGlnYG/tam-ogel/562b325120efba096b3f9f593de058dd_88_88.png" alt="">
+                        <div>小米账号</div>
+                    </div>
+                    <div class="right">
+                        <div>用户协议</div>
+                        <div>隐私政策</div>
+                        <div>帮助中心</div>
+                        <div class="border"></div>
+                        <div class="china">
+                            <p>中文简体</p>
+                            <div>
+                                <p>中文(繁体)</p>
+                                <p>English</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="container">
+                    <div class="switch">
+                        <span class="iconfont">&#xe614;</span>
+                    </div>
+                    <div class="switch_left">扫码登录</div>
+                    <div>
+                        <div class="tab_top">
+                            <div>
+                                <a href="http://localhost:3000/html/login.html" tabindex="1">登录</a>
+                                <div></div>
+                            </div>
+                            <div>
+                                <a href="http://localhost:3000/html/register.html" tabindex="1">注册</a>
+                                <div></div>
+                            </div>
+                        </div>
+                        <div class="tab_content" id="app">
+                            <div>
+                                <div>
+                                    <input type="text" :style="{backgroundColor: user.backgroundColor}"  @blur.once="userName"  v-model="user.value"><span :style="{color: user.color}" :class="user.style">邮箱/手机号码/小米ID</span>
+                                </div>
+                            </div>
+                            <p :style="{display: user.display}">请输入账号</p>
+                            <div>
+                                <div>
+                                    <input type="password" :style="{backgroundColor: passWord.backgroundColor}" @blur.once="passName" v-model="passWord.value" v-if="button">
+                                    <input type="text" :style="{backgroundColor: passWord.backgroundColor}" @blur.once="passName" v-model="passWord.value" v-if="!button">
+                                    <span :style="{color: passWord.color}" :class="passWord.style">密码</span>
+                                </div>
+                                <button @click="iconfont1()"><span class="iconfont" v-if="button">&#xe901;</span><span class="iconfont" v-if="!button">&#xe8c7;</span></button>
+                            </div>
+                            <p :style="{display: passWord.display}">请输入登录密码</p>
+                            <div>
+                                <input type="checkbox" v-model="button1.protocol">
+                                <span>已阅读并同意小米账号<b>用户协议</b>和<b>用户隐私</b></span>
+                            </div>
+                            <div class="tab_float" :style="{display: button1.display}">请您同意用户条款</div>
+                            <button tabindex="-1" :style="{opacity:button1.opacity}" @click="protoCol(),login()">
+                                登录
+                            </button>
+                            <div class="form_action">
+                                <div>忘记密码？</div>
+                                <div>手机号登陆</div>
+                            </div>
+                        </div>
+                        <div></div>
+                    </div>
+                </div>
+                <div class="food"></div>
+            </div>
+        </div>
+        <script>
+            var vm = new Vue({
+            el:'#app',
+            data:{
+                a:'font_style',
+                button:'ture',
+                button_color:'',
+                button1:{
+                    btn1:'',
+                    btn2:'',
+                    opacity:'',
+                    protocol:'',
+                    display:''
+                },
+                user:{
+                    display:'',
+                    backgroundColor:'',
+                    color:'',
+                    value:'',
+                    style:''
+                },
+                passWord:{
+                    display:'',
+                    backgroundColor:'',
+                    color:'',
+                    value:'',
+                    style:''
+                }
+            },
+            methods: {
+                protoCol(){
+                    if(this.button1.btn1&&this.button1.btn2){
+                        if(!this.button1.protocol){
+                        console.log(1);
+                        this.button1.display='block',
+                        setTimeout(()=>{
+                            this.button1.display='none'
+                        },2500)
+                        }
+                    }
+                },
+                login(){
+                    if(this.button1.btn1&&this.button1.btn2&&this.button1.protocol){
+                        $.post('http://localhost:3000/api/login',{uname:this.user.value,password:this.passWord.value},(data)=>{
+                            console.log(data.msg,data.status,data.token);
+                            if(data.status===0) {
+                                sessionStorage.setItem('token',data.token)
+                                window.location.href='http://localhost:3000/html/index.html'
+                            }
+
+                        })
+                    }
+                },
+                iconfont1(){
+                    console.log(11);
+                    return this.button=!this.button
+                },
+                userName(){
+                    if(this.user.value.length===0){
+                        return this.user.display='block',this.user.backgroundColor='#FAE7E9',this.user.color='#f04645'
+                    }
+                    
+                },
+                passName(){
+                    if(this.passWord.value.length===0){
+                        return this.passWord.display='block',this.passWord.backgroundColor='#FAE7E9',this.passWord.color='#f04645'
+                    }    
+                },    
+            },
+            watch:{
+                
+                'user.value':{
+                    handler(newV,oldV){
+                        if(newV.length>0){
+                            this.user.style='font_style',
+                            this.user.backgroundColor='',
+                            this.user.display='none',
+                            this.user.color='#aaa',
+                            this.button1.btn1=true
+                        }
+                        if(newV.length==0){
+                            this.user.style='',
+                            this.user.display='block'
+                            this.user.backgroundColor='#FAE7E9',
+                            this.user.color='#f04645',
+                            this.button1.btn1=false
+                        }
+                    }
+                },
+                'passWord.value':{
+                    handler(newV,oldV){
+                        if(newV.length>0){
+                            this.passWord.style='font_style',
+                            this.passWord.backgroundColor='',
+                            this.passWord.display='none',
+                            this.passWord.color='#aaa',
+                            this.button1.btn2=true
+                        }
+                        if(newV.length==0){
+                            this.passWord.style='',
+                            this.passWord.display='block',
+                            this.passWord.backgroundColor='#FAE7E9',
+                            this.passWord.color='#f04645',
+                            this.button1.btn2=false
+                        }
+                    }
+                },
+                button1:{
+                    deep:true,
+                    handler(){
+                        if(this.button1.btn1&&this.button1.btn2){
+                            this.button1.opacity=1
+                        }else{
+                            console.log(2);
+                            this.button1.opacity=0.4
+                        }
+                    }
+                },
+            }
+        })
+        </script>
+        
+</body>
+</html>
